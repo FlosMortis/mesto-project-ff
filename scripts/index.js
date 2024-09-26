@@ -25,7 +25,11 @@ const addCardForm = document.forms['new-place'];
 const popupImage = imagePopup.querySelector('.popup__image');
 const popupCaption = imagePopup.querySelector('.popup__caption');
 
-function createCard(cardData) {
+function handleDeleteCard(card) {
+  card.remove();
+}
+
+function createCard(cardData, deleteCardHandler) {
   const card = cardTemplate.content.cloneNode(true).querySelector('.card');
   const cardImage = card.querySelector('.card__image');
   const cardTitle = card.querySelector('.card__title');
@@ -35,7 +39,8 @@ function createCard(cardData) {
   cardImage.alt = cardData.name;
   cardTitle.textContent = cardData.name;
 
-  card.querySelector('.card__delete-button').addEventListener('click', () => card.remove());
+  card.querySelector('.card__delete-button').addEventListener('click', () => deleteCardHandler(card));
+  
   cardImage.addEventListener('click', () => openPopup(imagePopup, cardData));
   
   likeButton.addEventListener('click', () => {
@@ -46,7 +51,7 @@ function createCard(cardData) {
 }
 
 function renderCard(cardData) {
-  cardsList.prepend(createCard(cardData));
+  cardsList.prepend(createCard(cardData, handleDeleteCard));
 }
 
 function openPopup(popup, data = null) {
