@@ -1,5 +1,5 @@
 import { initialCards } from './components/cards.js';
-import { createCard, handleDeleteCard } from './components/card.js';
+import { createCard, handleDeleteCard, handleLikeCard } from './components/card.js';
 import { openModal, closeModal, setEventListeners } from './components/modal.js';
 import '../index.css';
 
@@ -18,7 +18,7 @@ const popupImage = imagePopup.querySelector('.popup__image');
 const popupCaption = imagePopup.querySelector('.popup__caption');
 
 function renderCard(cardData) {
-  const card = createCard(cardData, handleDeleteCard, openImagePopup);
+  const card = createCard(cardData, handleDeleteCard, openImagePopup, handleLikeCard);
   cardsList.prepend(card);
 }
 
