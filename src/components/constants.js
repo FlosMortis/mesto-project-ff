@@ -1,0 +1,13 @@
+export const cardsList = document.querySelector('.places__list');
+export const editProfilePopup = document.querySelector('.popup_type_edit');
+export const addCardPopup = document.querySelector('.popup_type_new-card');
+export const imagePopup = document.querySelector('.popup_type_image');
+export const editProfileButton = document.querySelector('.profile__edit-button');
+export const addCardButton = document.querySelector('.profile__add-button');
+export const profileName = document.querySelector('.profile__title');
+export const profileDescription = document.querySelector('.profile__description');
+export const popups = document.querySelectorAll('.popup');
+export const editProfileForm = document.forms['edit-profile'];
+export const addCardForm = document.forms['new-place'];
+export const popupImage = imagePopup.querySelector('.popup__image');
+export const popupCaption = imagePopup.querySelector('.popup__caption');
