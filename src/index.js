@@ -79,6 +79,7 @@ function handleAvatarFormSubmit(evt) {
     .then((userData) => {
       constants.profileAvatar.style.backgroundImage = `url(${userData.avatar})`;
       closeModal(constants.avatarPopup);
+      constants.avatarForm.reset();
     })
     .catch((err) => console.log(err))
     .finally(() => {
