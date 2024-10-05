@@ -8,6 +8,15 @@ import '../index.css';
 
 let userId;
 
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
+
 function renderCard(cardData) {
   const card = createCard(cardData, handleDeleteCard, openImagePopup, handleLikeCard, userId);
   constants.cardsList.prepend(card);
@@ -22,7 +31,7 @@ function openImagePopup(cardData) {
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  const submitButton = evt.target.querySelector('.popup__button');
+  const submitButton = evt.target.querySelector(validationConfig.submitButtonSelector);
   const originalButtonText = submitButton.textContent;
   submitButton.textContent = 'Сохранение...';
   
@@ -40,7 +49,7 @@ function handleProfileFormSubmit(evt) {
 
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
-  const submitButton = evt.target.querySelector('.popup__button');
+  const submitButton = evt.target.querySelector(validationConfig.submitButtonSelector);
   const originalButtonText = submitButton.textContent;
   submitButton.textContent = 'Сохранение...';
   
@@ -49,6 +58,7 @@ function handleAddCardFormSubmit(evt) {
       renderCard(newCard);
       closeModal(constants.addCardPopup);
       constants.addCardForm.reset();
+      clearValidation(constants.addCardForm, validationConfig);
     })
     .catch((err) => console.log(err))
     .finally(() => {
@@ -69,19 +79,40 @@ function handleAddCardButtonClick() {
   openModal(constants.addCardPopup);
 }
 
+function handleAvatarButtonClick() {
+  constants.avatarForm.reset();
+  clearValidation(constants.avatarForm, validationConfig);
+  const submitButton = constants.avatarForm.querySelector(validationConfig.submitButtonSelector);
+  if (submitButton) {
+    submitButton.classList.add(validationConfig.inactiveButtonClass);
+    submitButton.disabled = true;
+  }
+  openModal(constants.avatarPopup);
+}
+
 function handleAvatarFormSubmit(evt) {
   evt.preventDefault();
-  const submitButton = evt.target.querySelector('.popup__button');
+  const submitButton = evt.target.querySelector(validationConfig.submitButtonSelector);
+  
+  if (submitButton.disabled) {
+    return;
+  }
+
   const originalButtonText = submitButton.textContent;
+  const avatarLink = constants.avatarForm.link.value;
+
   submitButton.textContent = 'Сохранение...';
   
-  api.updateAvatar(constants.avatarForm.link.value)
+  api.updateAvatar(avatarLink)
     .then((userData) => {
       constants.profileAvatar.style.backgroundImage = `url(${userData.avatar})`;
       closeModal(constants.avatarPopup);
       constants.avatarForm.reset();
+      clearValidation(constants.avatarForm, validationConfig);
     })
-    .catch((err) => console.log(err))
+    .catch((err) => {
+      console.error('Ошибка при обновлении аватара:', err);
+    })
     .finally(() => {
       submitButton.textContent = originalButtonText;
     });
@@ -100,19 +131,10 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
 constants.editProfileButton.addEventListener('click', handleEditProfileButtonClick);
 constants.addCardButton.addEventListener('click', handleAddCardButtonClick);
-constants.avatarButton.addEventListener('click', () => openModal(constants.avatarPopup));
+constants.avatarButton.addEventListener('click', handleAvatarButtonClick);
 constants.popups.forEach(setEventListeners);
 constants.editProfileForm.addEventListener('submit', handleProfileFormSubmit);
 constants.addCardForm.addEventListener('submit', handleAddCardFormSubmit);
 constants.avatarForm.addEventListener('submit', handleAvatarFormSubmit);
-
-const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-};
 
 enableValidation(validationConfig);
