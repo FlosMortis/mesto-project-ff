@@ -934,7 +934,7 @@ template {
   border-radius: 2px;
   border: none;
   transition: visibility 0s, background 0.3s;
-  margin-top: 48px;
+  margin-top: 18px; 
 }
 
 .popup__button:hover {
@@ -950,26 +950,40 @@ template {
 }
 
 .popup__button_disabled {
-  opacity: 0.2;
-  cursor: default;
-  background-color: #E5E5E5;
+  opacity: 0.3;
+  cursor: not-allowed;
+  background-color: transparent;
+  color: #000000;
+  border: 1px solid #000000;
 }
 
 .popup__button_disabled:hover {
-  background-color: #E5E5E5;
+  background-color: transparent;
+}
+
+.popup__input {
+  margin-bottom: 5px;
 }
 
 .popup__input_type_error {
   border-bottom-color: red;
 }
 
-.popup__error_visible {
-  color: red;
+.popup__error {
+  display: block;
+  min-height: 30px; 
   font-size: 12px;
   line-height: 15px;
+  color: transparent; 
+  transition: color 0.3s;
   margin-top: 5px;
-  display: block;
 }
+
+.popup__error_visible {
+  color: red;
+}
+
+
 .popup__caption {
   font-size: 12px;
   line-height: 15px;
