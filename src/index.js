@@ -100,9 +100,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 constants.editProfileButton.addEventListener('click', handleEditProfileButtonClick);
 constants.addCardButton.addEventListener('click', handleAddCardButtonClick);
 constants.avatarButton.addEventListener('click', () => openModal(constants.avatarPopup));
-
 constants.popups.forEach(setEventListeners);
-
 constants.editProfileForm.addEventListener('submit', handleProfileFormSubmit);
 constants.addCardForm.addEventListener('submit', handleAddCardFormSubmit);
 constants.avatarForm.addEventListener('submit', handleAvatarFormSubmit);
