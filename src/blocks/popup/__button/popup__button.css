@@ -25,3 +25,25 @@
     line-height: 17px;
   }
 }
+
+.popup__button_disabled {
+  opacity: 0.2;
+  cursor: default;
+  background-color: #E5E5E5;
+}
+
+.popup__button_disabled:hover {
+  background-color: #E5E5E5;
+}
+
+.popup__input_type_error {
+  border-bottom-color: red;
+}
+
+.popup__error_visible {
+  color: red;
+  font-size: 12px;
+  line-height: 15px;
+  margin-top: 5px;
+  display: block;
+}

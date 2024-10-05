@@ -11,3 +11,7 @@ export const editProfileForm = document.forms['edit-profile'];
 export const addCardForm = document.forms['new-place'];
 export const popupImage = imagePopup.querySelector('.popup__image');
 export const popupCaption = imagePopup.querySelector('.popup__caption');
+export const avatarForm = document.forms['avatar-form'];
+export const profileAvatar = document.querySelector('.profile__image');
+export const avatarPopup = document.querySelector('.popup_type_avatar');
+export const avatarButton = document.querySelector('.profile__avatar-edit');
